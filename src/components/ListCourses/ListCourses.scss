@@ -1,0 +1,33 @@
+$padding: 1em;
+
+.courses-list {
+	display: flex;
+	flex-wrap: wrap;
+	list-style: none;
+	padding: 0;
+	margin-left: -$padding;
+	margin-right: -$padding;
+
+	& li {
+		padding: $padding;
+		width: 25%;
+	}
+
+	& .ant-card-body {
+		position: relative;
+	}
+
+	&__drop {
+		position: absolute;
+		height: 100%;
+		width: 100%;
+		background-color: transparent;
+		transition: background-color 0.2s ease-in-out;
+		top: 0;
+		left: 0;
+	}
+}
+
+.drop-target {
+	background-color: rgba(0,0,0,0.2);
+}

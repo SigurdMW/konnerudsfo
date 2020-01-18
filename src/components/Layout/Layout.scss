@@ -1,0 +1,52 @@
+$menuHeight: 50px;
+
+.container {
+	max-width: 950px;
+	width: 100%;
+	margin: 0 auto;
+
+	&--main {
+		min-height: calc(100vh - #{$menuHeight});
+	}
+
+	& .ant-spin {
+		display: block;
+		margin: 0 auto;
+	}
+}
+
+.header {
+	height: $menuHeight;
+	background-color: #fff;
+	margin-bottom: 1em;
+
+	& .container {
+		display: flex;
+		padding: 5px 0;
+		height: 100%;
+	}
+
+	&__logo {
+		display: flex;
+		align-items: center;
+		width: 50px;
+
+		& a {
+			display: block;
+			width: 100%;
+			height: 100%;
+		}
+
+		& img {
+			width: auto;
+			height: 100%
+		}
+	}
+
+	&__right {
+		align-items: center;
+		justify-content: right;
+		display: flex;
+		flex-grow: 1;
+	}
+}

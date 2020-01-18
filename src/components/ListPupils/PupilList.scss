@@ -1,0 +1,15 @@
+$padding: 1em;
+
+.pupil-list {
+	list-style: none;
+	padding: 0;
+	display: flex;
+	flex-wrap: wrap;
+	margin-left: -$padding;
+	margin-right: -$padding;
+
+	& > li {
+		width: 25%;
+		padding: $padding;
+	}
+}

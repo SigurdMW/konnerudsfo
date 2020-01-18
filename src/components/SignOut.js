@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import firebase from "firebase"
 import { StateContextConsumer } from '../state';
 import { useHistory } from "react-router-dom"
+import { Alert } from "antd"
+import Button from './Button';
 
 export const SignOut = (props) => {
 	const [error, setError] = useState("")
@@ -22,8 +24,8 @@ export const SignOut = (props) => {
 			if (!context.isLoggedIn) return null
 			return (
 				<div>
-					{error && error}
-					<button onClick={logout(context.setIsLoggedIn)}>Logg ut</button>
+					{error && <Alert message={error} type="error" />}
+					<Button onClick={logout(context.setIsLoggedIn)}>Logg ut</Button>
 				</div>
 			)}
 		}

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { successTost } from '../../toast';
+import Button from '../Button';
+import { Form, Icon, Input, Alert, message } from 'antd';
+
 
 export const AddCourse = ({ addCourse }) => {
 	const [name, setName] = useState("")
@@ -9,19 +11,28 @@ export const AddCourse = ({ addCourse }) => {
 		e.preventDefault()
 		setError("")
 		if (!name) {
-			setError("Du må angi navn.")
+			setError("Du må angi navn på kurset.")
 			return
 		}
 		addCourse(name)
-		successTost(`${name} ble lagt til!`)
+		message.info(`Kurset ${name} ble lagt til!`)
 		setName("")
 	}
 	return (
-		<form action="" method="get" onSubmit={handleSubmit}>
-			{error && error}
-			<input type="text" placeholder="Navn" onChange={(e) => setName(e.target.value)} value={name} />
-			<button>Submit</button>
-		</form>
+		<Form onSubmit={handleSubmit} className="login-form">
+			{error && <Alert message={error} type="error" />}
+			<Form.Item>
+				<Input
+				onChange={(e) => setName(e.target.value)}
+				value={name}
+					prefix={<Icon type="thunderbolt" style={{ color: 'rgba(0,0,0,.25)' }} />}
+					placeholder="Kurs"
+				/>
+			</Form.Item>
+			<Button type="primary" htmlType="submit" className="login-form-button">
+				Legg til kurs
+			</Button>
+		</Form>
 	);
 };
 

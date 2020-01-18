@@ -4,9 +4,9 @@ import {
 	Switch,
 	Route
 } from "react-router-dom";
-import Login from "./components/Login"
-import Dashboard from "./components/Dashboard"
-import Layout from "./components/Layout"
+import Login from "./components/Login/"
+import Dashboard from "./components/Dashboard/"
+import Layout from "./components/Layout/"
 
 export const Router = (props) => {
 	return (

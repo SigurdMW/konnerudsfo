@@ -57,9 +57,53 @@ class StateContextProvider extends Component {
 		})
 	}
 
+	deleteCourse = (key) => {
+		this.setState(prevState => {
+			return {
+				courses: prevState.courses.filter(c => c.key !== key)
+			}
+		})
+	}
+
 	addPupil = (name, gradeAndClass, courses = []) => {
 		this.setState({
 			pupils: [...this.state.pupils, {name, gradeAndClass, courses}]
+		})
+	}
+
+	deletePupil = (key) => {
+		this.setState(prevState => {
+			return {
+				pupils: prevState.pupils.filter(p => p.key !== key)
+			}
+		})
+	}
+
+	removeCourseFromPupil = (pupilKey, courseKey) => {
+		this.setState(prevState => {
+			const newPupils = [...prevState.pupils]
+			const pupil = newPupils.find(p => p.key === pupilKey)
+			pupil.courses = pupil.courses.filter(c => c !== courseKey)
+			return {
+				pupils: newPupils
+			}
+		})
+	}
+
+	addPupilToCourse = (pupilKey, courseKey) => {
+		this.setState(prevState => {
+			return {
+				pupils: prevState.pupils.map((p) => {
+					if (p.key === pupilKey) {
+						if (p.courses && p.courses.length) {
+							if (!p.courses.includes(courseKey)) p.courses.push(courseKey)
+						} else {
+							p.courses = [courseKey]
+						}
+					}
+					return p
+				})
+			}
 		})
 	}
 
@@ -69,10 +113,18 @@ class StateContextProvider extends Component {
 				value={{
 					isLoggedIn: this.state.isLoggedIn,
 					setIsLoggedIn: this.setIsLoggedIn,
-					courses: this.state.courses,
-					addCourse: this.addCourse,
+					
 					pupils: this.state.pupils,
-					addPupil: this.addPupil
+					isLoadingPupils: this.state.isLoadingPupils,
+					addPupil: this.addPupil,
+					deletePupil: this.deletePupil,
+					removeCourseFromPupil: this.removeCourseFromPupil,
+					addPupilToCourse: this.addPupilToCourse,
+					
+					courses: this.state.courses,
+					isLoadingCourses: this.state.isLoadingCourses,
+					addCourse: this.addCourse,
+					deleteCourse: this.deleteCourse,
 				}}
 			>
 				{this.props.children}

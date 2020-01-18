@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Form, Icon, Input, Alert } from 'antd';
+import Button from '../Button';
 
 export const AddPupil = ({ addPupil }) => {
 	const [name, setName] = useState("")
@@ -17,12 +19,28 @@ export const AddPupil = ({ addPupil }) => {
 		setGradeAndClass("")
 	}
 	return (
-		<form action="" method="get" onSubmit={handleSubmit}>
-			{error && error}
-			<input type="text" placeholder="Navn" onChange={(e) => setName(e.target.value)} value={name} />
-			<input type="text" placeholder="Klasse" onChange={(e) => setGradeAndClass(e.target.value)} value={gradeAndClass} />
-			<button>Submit</button>
-		</form>
+		<Form onSubmit={handleSubmit} className="login-form">
+			{error && <Alert message={error} type="error" />}
+			<Form.Item>
+				<Input
+					onChange={(e) => setName(e.target.value)}
+					value={name}
+					prefix={<Icon type="user-add" style={{ color: 'rgba(0,0,0,.25)' }} />}
+					placeholder="Navn"
+				/>
+			</Form.Item>
+			<Form.Item>
+				<Input
+					onChange={(e) => setGradeAndClass(e.target.value)}
+					value={gradeAndClass}
+					prefix={<Icon type="usergroup-add" style={{ color: 'rgba(0,0,0,.25)' }} />}
+					placeholder="Klasse"
+				/>
+			</Form.Item>
+			<Button type="primary" htmlType="submit" className="login-form-button">
+				Legg til elev
+			</Button>
+		</Form>
 	);
 };
 
