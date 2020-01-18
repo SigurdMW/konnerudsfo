@@ -11,5 +11,20 @@ $padding: 1em;
 	& > li {
 		width: 25%;
 		padding: $padding;
+
+		& ul {
+			list-style: none;
+			padding: 0;
+
+			& > li {
+				&:nth-child(even) {
+					background-color: #f7f7f7;
+				}
+			}
+		}
+	}
+
+	&-item {
+		padding: 3px;
 	}
 }

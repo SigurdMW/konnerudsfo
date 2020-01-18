@@ -6,7 +6,14 @@ export const ListPupilsConnector = (props) => {
 	return (
 		<StateContextConsumer>
 		{(context) => {
-			return <ListPupils pupils={context.pupils} deletePupil={context.deletePupil} removeCourseFromPupil={context.removeCourseFromPupil} />
+			return (
+				<ListPupils
+					pupils={context.pupils}
+					deletePupil={context.deletePupil}
+					removeCourseFromPupil={context.removeCourseFromPupil}
+					getCourseName={context.getCourseName}
+				/>
+			)
 		}}
 		</StateContextConsumer>
 	);

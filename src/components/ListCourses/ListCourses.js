@@ -5,7 +5,7 @@ import Button from "../Button"
 
 const { confirm } = Modal;
 
-export const ListCourses = ({ courses, deleteCourse, addPupilToCourse }) => {
+export const ListCourses = ({ courses, deleteCourse, addPupilToCourse, getPupilsForCourse }) => {
 	const initDeleteCourse = (course) => () => {
 		confirm({
 			title: `Er du sikker på at du vil slette kurset ${course.name}?`,
@@ -47,6 +47,7 @@ export const ListCourses = ({ courses, deleteCourse, addPupilToCourse }) => {
 								title={course.name}
 								extra={<Button type="link" shape="round" icon="delete" size="small" onClick={initDeleteCourse(course)} />}
 								style={{ width: "100%" }}
+								size="small"
 							>
 								<div
 									onDragOver={allowDrop}
@@ -55,6 +56,9 @@ export const ListCourses = ({ courses, deleteCourse, addPupilToCourse }) => {
 									onDrop={drop(course.key)}
 									className="courses-list__drop"
 								></div>
+								<ul>
+									{getPupilsForCourse(course.key).map(p => <li>{p.name}</li>)}
+								</ul>
 							</Card>
 						</div>
 					</li>

@@ -49,10 +49,20 @@ class StateContextProvider extends Component {
 		});
 	};
 
-	addCourse = (name) => {
+	getPupilsForCourse = (courseKey) => {
+		return this.state.pupils.filter(p => p.courses && p.courses.includes(courseKey))
+	}
+
+	addCourse = ({
+		name,
+		startDate,
+		endDate,
+		time,
+		place
+	}) => {
 		this.setState(prevState => {
 			return {
-				courses: [...prevState.courses, { name }]
+				courses: [...prevState.courses, { name, startDate, endDate, time, place }]
 			}
 		})
 	}
@@ -107,6 +117,11 @@ class StateContextProvider extends Component {
 		})
 	}
 
+	getCourseName = (courseKey) => {
+		const course = this.state.courses.filter(c => c.key === courseKey)
+		return course.length ? course[0].name : "<ikke navngitt>"
+	}
+
 	render() {
 		return (
 			<Provider
@@ -120,10 +135,13 @@ class StateContextProvider extends Component {
 					deletePupil: this.deletePupil,
 					removeCourseFromPupil: this.removeCourseFromPupil,
 					addPupilToCourse: this.addPupilToCourse,
+
+					getPupilsForCourse: this.getPupilsForCourse,
 					
 					courses: this.state.courses,
 					isLoadingCourses: this.state.isLoadingCourses,
 					addCourse: this.addCourse,
+					getCourseName: this.getCourseName,
 					deleteCourse: this.deleteCourse,
 				}}
 			>

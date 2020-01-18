@@ -5,7 +5,7 @@ import "./PupilList.scss"
 
 const { confirm } = Modal
 
-export const ListPupils = ({ pupils, deletePupil, removeCourseFromPupil }) => {
+export const ListPupils = ({ pupils, deletePupil, removeCourseFromPupil, getCourseName }) => {
 	const [gradeAndClass, setGradeAndClass] = useState({})
 	
 	useEffect(() => {
@@ -43,13 +43,13 @@ export const ListPupils = ({ pupils, deletePupil, removeCourseFromPupil }) => {
 					<Card size="small" title={`Klasse ${key}`}>
 						<ul>
 							{value.map(pupil => (
-								<li key={pupil.key} draggable="true" onDragStart={drag(pupil.key)}>
+								<li key={pupil.key} draggable="true" onDragStart={drag(pupil.key)} className="pupil-list-item">
 									{pupil.name}
 			
 									<Button type="link" shape="round" icon="delete" size="small" onClick={confirmDelete(pupil)} />
 									{pupil.courses && pupil.courses.map((course) => (
 										<Tag closable onClose={() => removeCourseFromPupil(pupil.key, course)}>
-											{course}
+											{getCourseName(course)}
 										</Tag>
 									))}
 								</li>
