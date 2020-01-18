@@ -4,7 +4,7 @@ import "./Layout.scss"
 import { Layout } from 'antd';
 import { Link } from "react-router-dom";
 
-const {  Content, Footer } = Layout;
+const {  Footer } = Layout;
 
 class SiderDemo extends React.Component {
 
@@ -18,7 +18,7 @@ class SiderDemo extends React.Component {
 								<img src="./aks.png" alt="AKS Drammen" />
 							</Link>
 						</div>
-						<div class="header__right">
+						<div className="header__right">
 							<SignOut />
 						</div>
 					</div>

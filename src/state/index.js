@@ -16,9 +16,13 @@ class StateContextProvider extends Component {
 	componentDidMount() {
 		firebase.auth().onAuthStateChanged((user) => {
 			if (user) {
-				this.setState({
-					isLoggedIn: true
-				})
+				if (window.location.pathname === "/") {
+					window.location.pathname = "/home"
+				} else {
+					this.setState({
+						isLoggedIn: true
+					})
+				}
 			}
 		});
 
@@ -122,6 +126,17 @@ class StateContextProvider extends Component {
 		return course.length ? course[0].name : "<ikke navngitt>"
 	}
 
+	getPupilsByClass = () => {
+		return this.state.pupils.reduce((grouped, pupil) => {
+			if (grouped[pupil.gradeAndClass]) {
+				grouped[pupil.gradeAndClass].push(pupil)
+			} else {
+				grouped[pupil.gradeAndClass] = [pupil]
+			}
+			return grouped
+		}, {})
+	}
+
 	render() {
 		return (
 			<Provider
@@ -137,6 +152,7 @@ class StateContextProvider extends Component {
 					addPupilToCourse: this.addPupilToCourse,
 
 					getPupilsForCourse: this.getPupilsForCourse,
+					getPupilsByClass: this.getPupilsByClass,
 					
 					courses: this.state.courses,
 					isLoadingCourses: this.state.isLoadingCourses,

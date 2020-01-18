@@ -23,7 +23,7 @@ $menuHeight: 50px;
 
 	& .container {
 		display: flex;
-		padding: 5px 0;
+		padding: 5px 1em;
 		height: 100%;
 	}
 
@@ -48,6 +48,6 @@ $menuHeight: 50px;
 		align-items: center;
 		justify-content: right;
 		display: flex;
-		flex-grow: 1;
+		margin-left: auto;
 	}
 }

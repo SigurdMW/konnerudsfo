@@ -10,11 +10,20 @@ $padding: 1em;
 
 	& li {
 		padding: $padding;
-		width: 25%;
+		width: 100%;
+
+		@media (min-width: 576px) {
+			width: 50%;
+		}
+
+		@media (min-width: 880px) {
+			width: 25%;
+		}
 	}
 
 	& .ant-card-body {
 		position: relative;
+		min-height: 45px;
 
 		& li {
 			padding: 0;

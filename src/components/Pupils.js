@@ -9,7 +9,7 @@ export const Courses = (props) => {
 	return (
 		<div>
 			<h2>Elever
-				<Button type="primary" shape="round" icon="plus-circle" size={100} onClick={() => setShowModal(true)}>
+				<Button type="primary" shape="round" icon="plus-circle" onClick={() => setShowModal(true)}>
 					Ny elev
 				</Button>
 			  </h2>

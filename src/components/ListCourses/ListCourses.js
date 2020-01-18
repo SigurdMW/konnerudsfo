@@ -1,11 +1,18 @@
 import React from 'react';
-import { Card, Modal } from "antd"
+import { Card, Modal, Select } from "antd"
 import "./ListCourses.scss"
 import Button from "../Button"
 
 const { confirm } = Modal;
+const { Option, OptGroup } = Select;
 
-export const ListCourses = ({ courses, deleteCourse, addPupilToCourse, getPupilsForCourse }) => {
+export const ListCourses = ({
+	courses,
+	deleteCourse,
+	addPupilToCourse,
+	getPupilsForCourse,
+	getPupilsByClass
+}) => {
 	const initDeleteCourse = (course) => () => {
 		confirm({
 			title: `Er du sikker på at du vil slette kurset ${course.name}?`,
@@ -34,7 +41,12 @@ export const ListCourses = ({ courses, deleteCourse, addPupilToCourse, getPupils
 		addPupilToCourse(pupilKey, courseKey)
 		removeDropZone(ev)
 	}
+
+	const handleAddPupil = (courseKey) => (pupilKey) => {
+		addPupilToCourse(pupilKey, courseKey)
+	}
 	
+	const pupilsByClass = getPupilsByClass()
 	return (
 		<React.Fragment>
 			<ul className="courses-list">
@@ -59,6 +71,18 @@ export const ListCourses = ({ courses, deleteCourse, addPupilToCourse, getPupils
 								<ul>
 									{getPupilsForCourse(course.key).map(p => <li>{p.name}</li>)}
 								</ul>
+
+								<Select
+									style={{ width: "100%" }}
+									onChange={handleAddPupil(course.key)}
+									placeholder="Legg til elev"
+								>
+									{Object.entries(pupilsByClass).map(([key, value]) => (
+										<OptGroup label={`Klasse ${key}`}>
+											{value.map((pupil => <Option value={pupil.key}>{pupil.name}</Option>))}
+										</OptGroup>
+									))}
+								</Select>
 							</Card>
 						</div>
 					</li>

@@ -1,25 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Button from "../Button"
 import { Modal, Tag, Card } from "antd"
 import "./PupilList.scss"
 
 const { confirm } = Modal
 
-export const ListPupils = ({ pupils, deletePupil, removeCourseFromPupil, getCourseName }) => {
-	const [gradeAndClass, setGradeAndClass] = useState({})
-	
-	useEffect(() => {
-		const groupedByGradeAndClass = pupils.reduce((grouped, pupil) => {
-			if (grouped[pupil.gradeAndClass]) {
-				grouped[pupil.gradeAndClass].push(pupil)
-			} else {
-				grouped[pupil.gradeAndClass] = [pupil]
-			}
-			return grouped
-		}, {})
-		setGradeAndClass(groupedByGradeAndClass)
-	}, [pupils])
-
+export const ListPupils = ({
+	deletePupil,
+	removeCourseFromPupil,
+	getCourseName,
+	getPupilsByClass
+}) => {
 	const confirmDelete = (pupil) => () => {
 		confirm({
 			title: `Er du sikker på at du vil slette eleven ${pupil.name} i klasse ${pupil.gradeAndClass}?`,
@@ -35,7 +26,7 @@ export const ListPupils = ({ pupils, deletePupil, removeCourseFromPupil, getCour
 	const drag = (pupilKey) => (ev) => {
 		ev.dataTransfer.setData("pupilkey", pupilKey);
 	}
-
+	const gradeAndClass = getPupilsByClass()
 	return (
 		<ul className="pupil-list">
 			{Object.entries(gradeAndClass).map(([key, value]) => (

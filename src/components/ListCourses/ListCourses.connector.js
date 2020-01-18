@@ -11,6 +11,7 @@ export const ListCoursesConnector = (props) => {
 				deleteCourse={context.deleteCourse}
 				addPupilToCourse={context.addPupilToCourse}
 				getPupilsForCourse={context.getPupilsForCourse}
+				getPupilsByClass={context.getPupilsByClass}
 			/>
 		}}
 		</StateContextConsumer>
