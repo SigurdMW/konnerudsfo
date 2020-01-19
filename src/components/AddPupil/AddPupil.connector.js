@@ -6,7 +6,7 @@ export const AddPupilConnector = (props) => {
 	return (
 		<StateContextConsumer>
 		{(context) => {
-			return <AddPupil addPupil={context.addPupil} />
+			return <AddPupil addPupil={context.addPupil} updatePupil={context.updatePupil} {...props} />
 		}}
 		</StateContextConsumer>
 	);

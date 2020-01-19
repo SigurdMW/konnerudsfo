@@ -3,12 +3,23 @@ import Button from '../Button';
 import { Form, Icon, Input, Alert, message } from 'antd';
 
 
-export const AddCourse = ({ addCourse }) => {
-	const [name, setName] = useState("")
-	const [startDate, setStartDate] = useState()
-	const [endDate, setEndDate] = useState()
-	const [place, setPlace] = useState("")
-	const [time, setTime] = useState("")
+export const AddCourse = ({
+	addCourse,
+	updateCourse,
+	course = {
+		name: "",
+		startDate: null,
+		endDate: null,
+		place: "",
+		time: ""
+	},
+	update = false
+}) => {
+	const [name, setName] = useState(course.name)
+	const [startDate, setStartDate] = useState(course.startDate)
+	const [endDate, setEndDate] = useState(course.endDate)
+	const [place, setPlace] = useState(course.place)
+	const [time, setTime] = useState(course.time)
 	const [error, setError] = useState("")
 
 	const handleSubmit = (e) => {
@@ -18,19 +29,31 @@ export const AddCourse = ({ addCourse }) => {
 			setError("Du må angi navn på kurset.")
 			return
 		}
-		addCourse({
-			name,
-			startDate,
-			endDate,
-			time,
-			place
-		})
-		message.info(`Kurset ${name} ble lagt til!`)
-		setName("")
-		setStartDate()
-		setEndDate()
-		setPlace("")
-		setTime("")
+		if (update) {
+			updateCourse({
+				key: course.key,
+				name,
+				startDate,
+				endDate,
+				time,
+				place
+			})
+			message.info(`Kurset ${name} ble oppdatert!`)
+		} else {
+			addCourse({
+				name,
+				startDate,
+				endDate,
+				time,
+				place
+			})
+			message.info(`Kurset ${name} ble lagt til!`)
+			setName("")
+			setStartDate()
+			setEndDate()
+			setPlace("")
+			setTime("")
+		}
 	}
 	return (
 		<Form onSubmit={handleSubmit} className="login-form">
@@ -86,7 +109,7 @@ export const AddCourse = ({ addCourse }) => {
 				/>
 			</Form.Item>
 			<Button type="primary" htmlType="submit" className="login-form-button">
-				Legg til kurs
+				{update ? "Oppdater" : "Legg til kurs"}
 			</Button>
 		</Form>
 	);

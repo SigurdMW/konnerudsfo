@@ -21,6 +21,15 @@ $padding: 1em;
 		}
 	}
 
+	&-members {
+		padding: 0 1em;
+		margin-bottom: 1em;
+
+		& li {
+			width: 100%;
+		}
+	}
+
 	& .ant-card-body {
 		position: relative;
 		min-height: 45px;
@@ -38,6 +47,10 @@ $padding: 1em;
 		transition: background-color 0.2s ease-in-out;
 		top: 0;
 		left: 0;
+
+		&--active {
+			z-index: 999;
+		}
 	}
 }
 

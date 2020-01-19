@@ -6,7 +6,7 @@ export const AddPupilConnector = (props) => {
 	return (
 		<StateContextConsumer>
 		{(context) => {
-			return <AddCourse addCourse={context.addCourse} />
+			return <AddCourse addCourse={context.addCourse} updateCourse={context.updateCourse} {...props} />
 		}}
 		</StateContextConsumer>
 	);

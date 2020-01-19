@@ -137,6 +137,28 @@ class StateContextProvider extends Component {
 		}, {})
 	}
 
+	updateCourse = (course) => {		
+		this.setState({
+			courses: this.state.courses.map(c => {
+				if (c.key === course.key) {
+					return course
+				}
+				return c
+			})
+		})
+	}
+
+	updatePupil = (pupil) => {		
+		this.setState({
+			pupils: this.state.pupils.map(p => {
+				if (p.key === pupil.key) {
+					return pupil
+				}
+				return p
+			})
+		})
+	}
+
 	render() {
 		return (
 			<Provider
@@ -147,6 +169,7 @@ class StateContextProvider extends Component {
 					pupils: this.state.pupils,
 					isLoadingPupils: this.state.isLoadingPupils,
 					addPupil: this.addPupil,
+					updatePupil: this.updatePupil,
 					deletePupil: this.deletePupil,
 					removeCourseFromPupil: this.removeCourseFromPupil,
 					addPupilToCourse: this.addPupilToCourse,
@@ -158,6 +181,7 @@ class StateContextProvider extends Component {
 					isLoadingCourses: this.state.isLoadingCourses,
 					addCourse: this.addCourse,
 					getCourseName: this.getCourseName,
+					updateCourse: this.updateCourse,
 					deleteCourse: this.deleteCourse,
 				}}
 			>

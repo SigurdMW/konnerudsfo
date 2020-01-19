@@ -2,9 +2,14 @@ import React, { useState } from 'react';
 import { Form, Icon, Input, Alert } from 'antd';
 import Button from '../Button';
 
-export const AddPupil = ({ addPupil }) => {
-	const [name, setName] = useState("")
-	const [gradeAndClass, setGradeAndClass] = useState("")
+export const AddPupil = ({
+	addPupil,
+	updatePupil,
+	update = false,
+	pupil = { name: "", gradeAndClass: ""}
+}) => {
+	const [name, setName] = useState(pupil.name)
+	const [gradeAndClass, setGradeAndClass] = useState(pupil.gradeAndClass)
 	const [error, setError] = useState("")
 
 	const handleSubmit = (e) => {
@@ -14,9 +19,17 @@ export const AddPupil = ({ addPupil }) => {
 			setError("Du må angi både navn og klasse.")
 			return
 		}
-		addPupil(name, gradeAndClass)
-		setName("")
-		setGradeAndClass("")
+		if (update) {
+			updatePupil({
+				key: pupil.key,
+				name,
+				gradeAndClass
+			})
+		} else {
+			addPupil(name, gradeAndClass)
+			setName("")
+			setGradeAndClass("")
+		}
 	}
 	return (
 		<Form onSubmit={handleSubmit} className="login-form">
@@ -38,7 +51,7 @@ export const AddPupil = ({ addPupil }) => {
 				/>
 			</Form.Item>
 			<Button type="primary" htmlType="submit" className="login-form-button">
-				Legg til elev
+				{update ? "Oppdater" : "Legg til elev"}
 			</Button>
 		</Form>
 	);
