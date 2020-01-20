@@ -102,6 +102,7 @@ export const ListCourses = ({
 											<span>{p.name}, {p.gradeAndClass}</span>
 										</li>
 									))}
+									{getPupilsForCourse(course.key).length === 0 && "Ingen elever deltar på dette kurset."}
 								</ul>
 
 								<Select
