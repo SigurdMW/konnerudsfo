@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import Button from '../Button';
-import { Form, Icon, Input, Alert, message } from 'antd';
-
+import { Form, Icon, Input, Alert, message, Switch } from 'antd';
+import Datepicker from "../Datepicker"
+import { weekNumber } from "../../utils/weekNumber"
 
 export const AddCourse = ({
 	addCourse,
@@ -10,6 +11,7 @@ export const AddCourse = ({
 		name: "",
 		startDate: null,
 		endDate: null,
+		showWeekNumber: false,		
 		place: "",
 		time: ""
 	},
@@ -20,6 +22,7 @@ export const AddCourse = ({
 	const [endDate, setEndDate] = useState(course.endDate)
 	const [place, setPlace] = useState(course.place)
 	const [time, setTime] = useState(course.time)
+	const [showWeekNumber, setShowWeekNumber] = useState(course.showWeekNumber)
 	const [error, setError] = useState("")
 
 	const handleSubmit = (e) => {
@@ -36,7 +39,8 @@ export const AddCourse = ({
 				startDate,
 				endDate,
 				time,
-				place
+				place,
+				showWeekNumber
 			})
 			message.info(`Kurset ${name} ble oppdatert!`)
 		} else {
@@ -45,7 +49,8 @@ export const AddCourse = ({
 				startDate,
 				endDate,
 				time,
-				place
+				place,
+				showWeekNumber
 			})
 			message.info(`Kurset ${name} ble lagt til!`)
 			setName("")
@@ -69,28 +74,32 @@ export const AddCourse = ({
 			<Form.Item>
 				<div style={{display: "flex"}}>
 					<div style={{flex: 1}}>
-						<label htmlFor="startdate">Fra dato</label>
-						<Input
-							onChange={(e) => setStartDate(e.target.value)}
-							value={startDate}
-							prefix={<Icon type="calendar" style={{ color: 'rgba(0,0,0,.25)' }} />}
-							placeholder="Start dato"
-							type="date"
+						<Datepicker
+							label="Fra dato"
+							date={startDate}
+							onChange={setStartDate}
 							id="startdate"
 						/>
+						Uke: {startDate && weekNumber(startDate)}
 					</div>
 					<div>
-						<label htmlFor="todate">Til dato</label>
-						<Input
-							onChange={(e) => setEndDate(e.target.value)}
-							value={endDate}
-							prefix={<Icon type="calendar" style={{ color: 'rgba(0,0,0,.25)' }} />}
-							placeholder="Slutt dato"
-							type="date"
-							id="todate"
+						<Datepicker
+							label="Til dato"
+							date={!endDate && startDate ? (new Date()).setDate((new Date()).getDate() + 7) : endDate }
+							onChange={setEndDate}
+							id="enddate"
 						/>
+						Uke: {(startDate || endDate) && weekNumber(endDate || startDate)}
 					</div>
 				</div>
+			</Form.Item>
+			<Form.Item>
+				<Switch
+					onChange={() => setShowWeekNumber(!showWeekNumber)}
+					checked={showWeekNumber || undefined}
+					unCheckedChildren="Dato"
+					checkedChildren="Uke"
+				/>
 			</Form.Item>
 			<Form.Item>
 				<Input
